@@ -56,17 +56,8 @@ FROM projects
 INNER JOIN pledges 
 ON projects.id = pledges.project_id
 GROUP BY projects.category
-HAVING projects.category = 'music'
+HAVING projects.category == 'music'
 ;"
-
-
-expected: [["music", 40], ["music", 24], ["music", 34], ["music", 12], ["music", 40], ["music", 40], ["music", 20], ["music", 230]]
-got: [["music", 230.0]]
-
-...or:
-
-expected: [["music", 24], ["music", 34], ["music", 40], ["music", 12], ["music", 20], ["music", 40], ["music", 40], ["music", 230]]
-got: [["music", 230.0]]
 
 
 end
