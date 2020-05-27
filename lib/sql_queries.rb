@@ -21,33 +21,24 @@ def selects_the_user_name_age_and_pledge_amount_for_all_pledges_alphabetized_by_
   ON pledges.user_id = users.id
   GROUP BY users.name;"
   
-#------\/ users PARENT vs. pledges PARENT /\--------
-# "SELECT users.name, users.age, SUM(pledges.amount)
-# FROM users
-# INNER JOIN pledges 
-# ON pledges.user_id = users.id
-# GROUP BY users.name;"
-#---------------------------------------------------
+  #------\/ users PARENT vs. pledges PARENT /\--------
+  # "SELECT users.name, users.age, SUM(pledges.amount)
+  # FROM users
+  # INNER JOIN pledges 
+  # ON pledges.user_id = users.id
+  # GROUP BY users.name;"
+  #---------------------------------------------------
 end
 
 def selects_the_titles_and_amount_over_goal_of_all_projects_that_have_met_their_funding_goal
-  
-
-   INNER JOIN pledges.project_id = projects.id
-
-  if SUM(pledges.amount) AS pledges_total
-    is >= projects.funding_goal
-    SELECT projects.title
-  end
-
-
-  SELECT projects.title,
-
-  SELECT pledges_total - projects.funding_goal AS amount_over_goal
-
-
-
-  
+  "
+  SELECT projects.title, SUM(pledges.amount) - projects.funding_goal
+    FROM projects
+  INNER JOIN pledges
+    ON projects.id = pledges.project_id
+    GROUP BY projects.title HAVING SUM(pledges.amount) >= projects.funding_goal
+  ;
+  "
 end
 
 def selects_user_names_and_amounts_of_all_pledges_grouped_by_name_then_orders_them_by_the_summed_amount
